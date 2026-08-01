@@ -1,25 +1,29 @@
+# Draconagric
+<!-- 大标题 + 副标题 -->
+<p align="center">
+  <h1 align="center"> ✨Draconagic✨</h1>
+  <p align="center"><i>——For New World——</i></p>
+</p>
 
-Installation information
-=======
+<p align="center">
+  <b>中文</b> ｜ <b>English</b>
+</p>
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+<!-- 徽章两行排列 -->
+<p align="center">
+  <!-- 第一行：前三个 -->
+  <img src="https://img.shields.io/badge/Java-21-007396?logo=java&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/Gradle-8.5-02303A?logo=gradle&logoColor=white" alt="Gradle" />
+  <img src="https://img.shields.io/badge/NeoForge-21.1.247-FF6600?logo=neoforge&logoColor=white" alt="NeoForge" />
+  <br>
+  <!-- 第二行：后两个 -->
+  <img src="https://img.shields.io/badge/Minecraft-1.21.1-62B47A?logo=minecraft&logoColor=white" alt="Minecraft" />
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License" />
+</p>
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+---
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+##  前言
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+**Draconagic** 是一个基于 NeoForge 的 Minecraft 模组
