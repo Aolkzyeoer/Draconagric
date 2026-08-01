@@ -1,0 +1,28 @@
+{
+  "advancement": "minecraft:story/root",
+  "speaker": "角色名",
+  "text": "这里写对话正文。检测到这个成就完成时会自动弹出对话界面。",
+  "portrait": "draconagric:textures/gui/dialogue/template_portrait.png",
+  "choices": [
+    {
+      "label": "选项 A：给物品",
+      "rewards": [
+        {
+          "type": "item",
+          "item": "minecraft:diamond",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "label": "选项 B：给经验并进入下一段",
+      "next_dialogue": "draconagric:template_next",
+      "rewards": [
+        {
+          "type": "experience",
+          "amount": 50
+        }
+      ]
+    }
+  ]
+}

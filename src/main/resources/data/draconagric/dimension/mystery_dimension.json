@@ -1,0 +1,20 @@
+{
+  "type": "draconagric:mystery_dimension_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "minecraft:end",
+    "surface_rule": {
+      "type": "minecraft:sequence",
+      "sequence": [
+        {
+          "type": "minecraft:block",
+          "result": "minecraft:end_stone_bricks"
+        }
+      ]
+    },
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:end_barrens"
+    }
+  }
+}

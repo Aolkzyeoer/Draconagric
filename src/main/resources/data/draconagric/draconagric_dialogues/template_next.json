@@ -1,0 +1,12 @@
+{
+  "advancement": "minecraft:impossible",
+  "speaker": "角色名",
+  "text": "这是通过 next_dialogue 打开的第二段对话示例。",
+  "portrait": "draconagric:textures/gui/dialogue/template_portrait.png",
+  "choices": [
+    {
+      "label": "结束对话",
+      "rewards": []
+    }
+  ]
+}

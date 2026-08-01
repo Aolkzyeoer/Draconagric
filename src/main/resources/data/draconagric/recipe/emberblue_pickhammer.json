@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:heavy_core"
+    },
+    "B": {
+      "item": "draconagric:emberblue"
+    },
+    "C": {
+      "item": "minecraft:diamond_block"
+    },
+    "D": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "BAC",
+    " D ",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconagric:emberblue_pickhammer"
+  }
+}

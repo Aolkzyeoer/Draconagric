@@ -1,0 +1,32 @@
+{
+  "advancement": "minecraft:story/mine_stone",
+  "speaker": "爱丽丝",
+  "text": "检测到任务完成：取得石头。老师，第一次采矿很顺利呢！请选择这次行动的补给方案。",
+  "portrait": "draconagric:textures/gui/dialogue/template_portrait.png",
+  "choices": [
+    {
+      "label": "领取矿工补给",
+      "rewards": [
+        {
+          "type": "item",
+          "item": "minecraft:iron_pickaxe",
+          "count": 1
+        },
+        {
+          "type": "item",
+          "item": "minecraft:torch",
+          "count": 16
+        }
+      ]
+    },
+    {
+      "label": "领取经验指导",
+      "rewards": [
+        {
+          "type": "experience",
+          "amount": 30
+        }
+      ]
+    }
+  ]
+}

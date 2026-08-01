@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "draconagric:manlanba",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:binomial",
+        "n": 1,
+        "p": 0.18
+      }
+    }
+  ],
+  "random_sequence": "draconagric:chests/manlanba"
+}

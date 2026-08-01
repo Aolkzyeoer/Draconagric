@@ -1,0 +1,6 @@
+{
+  "parent":"item/generated",
+  "textures":{
+    "layer0":"draconagric:item/slice_of_dragon_egg_cake"
+  }
+}
