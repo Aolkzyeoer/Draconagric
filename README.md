@@ -1,8 +1,8 @@
 # Draconagric
 <!-- 大标题 + 副标题 -->
 <p align="center">
-  <h1 align="center"> Draconagic</h1>
-  <p align="center"><i>For New World</i></p>
+  <h1 align="center"> ✨Draconagic✨</h1>
+  <p align="center"><i>——For New World——</i></p>
 </p>
 
 <!-- 徽章两行排列 -->
