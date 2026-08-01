@@ -26,4 +26,9 @@
 
 ##  前言
 
-**Draconagic** 是一个基于 NeoForge 的 Minecraft 模组
+有一个作为群杯子的角色…
+总之，就让我深陷这代码堆里苦不堪言了。
+呃呃呃呃，总之！这是一个长期项目……非常非常欢迎各位来群里聊天，和我分享观点～
+欢迎访问 [我们的群聊](https://qm.qq.com/q/DyuFlRIsPC?from=tim)
+
+
