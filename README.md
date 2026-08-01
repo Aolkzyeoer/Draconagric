@@ -5,6 +5,11 @@
   <p align="center"><i>——For New World——</i></p>
 </p>
 
+<p align="center">
+  <b>中文</b> ｜ <b>English</b>
+</p>
+
+
 <!-- 徽章两行排列 -->
 <p align="center">
   <!-- 第一行：前三个 -->
