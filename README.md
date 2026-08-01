@@ -15,7 +15,7 @@
   <!-- 第一行：前三个 -->
   <img src="https://img.shields.io/badge/Java-21-007396?logo=java&logoColor=white" alt="Java" />
   <img src="https://img.shields.io/badge/Gradle-8.5-02303A?logo=gradle&logoColor=white" alt="Gradle" />
-  <img src="https://img.shields.io/badge/NeoForge-1.21.1-FF6600?logo=neoforge&logoColor=white" alt="NeoForge" />
+  <img src="https://img.shields.io/badge/NeoForge-21.1.247-FF6600?logo=neoforge&logoColor=white" alt="NeoForge" />
   <br>
   <!-- 第二行：后两个 -->
   <img src="https://img.shields.io/badge/Minecraft-1.21.1-62B47A?logo=minecraft&logoColor=white" alt="Minecraft" />
