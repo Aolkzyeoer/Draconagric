@@ -39,36 +39,48 @@ public class DialogueScreen extends Screen {
         int panelY = this.height - panelH;
 
         graphics.fill(0, 0, this.width, this.height, 0x18000000);
+        renderDialogueBackdrop(graphics, panelY);
         renderPortrait(graphics);
-        renderDialoguePanel(graphics, font, panelY, panelH);
+        renderDialogueText(graphics, font, panelY);
         renderChoices(graphics, font, mouseX, mouseY, panelY);
 
         super.render(graphics, mouseX, mouseY, partialTick);
     }
 
-    private void renderDialoguePanel(GuiGraphics graphics, Font font, int y, int height) {
+    private void renderDialogueBackdrop(GuiGraphics graphics, int y) {
         graphics.fillGradient(0, y - 36, this.width, this.height, 0x00000000, 0xEE020205);
         graphics.fill(0, y, this.width, this.height, 0xD806070C);
         graphics.fill(0, y, this.width, y + 1, 0x66FFFFFF);
         graphics.fill(0, y + 1, this.width, y + 2, 0x223DA9FF);
+    }
 
+    private void renderDialogueText(GuiGraphics graphics, Font font, int y) {
         int contentX = 36;
         int textWidth = Math.max(160, this.width - getPortraitSize() - 112);
-        graphics.drawString(font, Component.literal(speaker), contentX, y + 18, 0x8BD7FF, false);
-        graphics.drawString(font, Component.literal("DIALOGUE"), contentX, y + 32, 0x66FFFFFF, false);
-        graphics.drawWordWrap(font, Component.literal(text), contentX, y + 54, textWidth, 0xF4F7FF);
+        drawReadableString(graphics, font, Component.literal(speaker), contentX, y + 18, 0x9EE5FF);
+        drawReadableString(graphics, font, Component.literal("DIALOGUE"), contentX, y + 32, 0xDCE7FF);
+        graphics.drawWordWrap(font, Component.literal(text), contentX + 1, y + 55, textWidth, 0xE0000000);
+        graphics.drawWordWrap(font, Component.literal(text), contentX, y + 54, textWidth, 0xFFFFFF);
+    }
+
+    private void drawReadableString(GuiGraphics graphics, Font font, Component text, int x, int y, int color) {
+        graphics.drawString(font, text, x + 1, y + 1, 0xE0000000, false);
+        graphics.drawString(font, text, x, y, color, false);
     }
 
     private void renderPortrait(GuiGraphics graphics) {
         int portraitW = getPortraitSize();
         int portraitH = portraitW;
-        int portraitX = this.width - portraitW - 12;
-        int portraitY = this.height - portraitH;
+        int portraitX = this.width - portraitW - 18;
+        int portraitY = this.height - portraitH + 6;
         graphics.blit(portrait, portraitX, portraitY, 0.0F, 0.0F, portraitW, portraitH, portraitW, portraitH);
     }
 
     private int getPortraitSize() {
-        return Math.min(300, Math.max(132, this.width / 4));
+        int widthBased = (int) (this.width * 0.38F);
+        int heightBased = (int) (this.height * 0.88F);
+        int minimum = Math.min(220, Math.max(132, this.width / 3));
+        return Math.min(430, Math.min(heightBased, Math.max(minimum, widthBased)));
     }
 
     private void renderChoices(GuiGraphics graphics, Font font, int mouseX, int mouseY, int panelY) {
@@ -81,9 +93,9 @@ public class DialogueScreen extends Screen {
         for (int i = 0; i < choices.size(); i++) {
             int y = choiceY + i * 18;
             boolean hovered = isChoiceHovered(i, mouseX, mouseY, choiceX, choiceY, font);
-            int color = hovered ? 0xFFFFFF : 0xBFC7D5;
+            int color = hovered ? 0xFFFFFF : 0xE4ECFF;
             String prefix = hovered ? "> " : "  ";
-            graphics.drawString(font, Component.literal(prefix + choices.get(i)), choiceX, y, color, false);
+            drawReadableString(graphics, font, Component.literal(prefix + choices.get(i)), choiceX, y, color);
         }
     }
 
