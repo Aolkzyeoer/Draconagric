@@ -10,11 +10,11 @@
     },
     {
       "item": "ends_delight:fried_dragon_egg"
-    },
-    {
-      "item": "minecraft:bowl"
     }
   ],
+  "container": {
+    "id": "minecraft:bowl"
+  },
   "recipe_book_tab": "meals",
   "result": {
     "count": 1,

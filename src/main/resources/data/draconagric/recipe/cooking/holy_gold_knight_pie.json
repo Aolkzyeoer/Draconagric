@@ -16,11 +16,11 @@
     },
     {
       "item": "farmersdelight:wheat_dough"
-    },
-    {
-      "item": "minecraft:bowl"
     }
   ],
+  "container": {
+    "id": "minecraft:bowl"
+  },
   "recipe_book_tab": "meals",
   "result": {
     "count": 1,
