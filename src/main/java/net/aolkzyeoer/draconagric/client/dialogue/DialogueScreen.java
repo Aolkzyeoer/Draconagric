@@ -52,34 +52,45 @@ public class DialogueScreen extends Screen {
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         Font font = Minecraft.getInstance().font;
-        int panelH = Math.min(168, Math.max(126, this.height / 4));
+        int panelH = Math.min(260, Math.max(150, (int) (this.height * 0.42F)));
         int panelY = this.height - panelH;
+        int lineY = panelY + 54;
 
-        renderDialogueBackdrop(graphics, panelY);
+        renderDialogueBackdrop(graphics, panelY, lineY);
         renderPortrait(graphics);
-        renderDialogueText(graphics, font, panelY);
+        renderDialogueText(graphics, font, panelY, lineY);
         renderChoices(graphics, font, mouseX, mouseY, panelY);
     }
 
-    private void renderDialogueBackdrop(GuiGraphics graphics, int y) {
-        graphics.fillGradient(0, y - 32, this.width, y, 0x00000000, 0xAA020205);
-        graphics.fill(0, y, this.width, this.height, 0xB806070C);
-        graphics.fill(0, y, this.width, y + 1, 0x55FFFFFF);
-        graphics.fill(0, y + 1, this.width, y + 2, 0x333DA9FF);
+    private void renderDialogueBackdrop(GuiGraphics graphics, int y, int lineY) {
+        graphics.fillGradient(0, y - 24, this.width, y, 0x00000000, 0x99F177FF);
+        graphics.fillGradient(0, y, this.width, this.height, 0xDDF177FF, 0xDDE700E7);
+        graphics.fill(24, lineY, this.width - 24, lineY + 1, 0xDDFFFFFF);
     }
 
-    private void renderDialogueText(GuiGraphics graphics, Font font, int y) {
+    private void renderDialogueText(GuiGraphics graphics, Font font, int y, int lineY) {
         int contentX = 36;
         int textWidth = Math.max(160, this.width - getPortraitRenderBounds().width - 112);
-        drawReadableString(graphics, font, Component.literal(speaker), contentX, y + 18, 0x9EE5FF);
-        drawReadableString(graphics, font, Component.literal("DIALOGUE"), contentX, y + 32, 0xDCE7FF);
-        graphics.drawWordWrap(font, Component.literal(text), contentX + 1, y + 55, textWidth, 0xE0000000);
-        graphics.drawWordWrap(font, Component.literal(text), contentX, y + 54, textWidth, 0xFFFFFF);
+        drawScaledString(graphics, font, Component.literal(speaker), contentX, y + 17, 0xFFFFFF, 1.8F);
+        int subtitleX = contentX + Math.round(font.width(speaker) * 1.8F) + 16;
+        drawScaledString(graphics, font, Component.literal("DIALOGUE"), subtitleX, y + 24, 0x82F5FF, 1.35F);
+        graphics.drawWordWrap(font, Component.literal(text), contentX + 1, lineY + 34, textWidth, 0xC0000000);
+        graphics.drawWordWrap(font, Component.literal(text), contentX, lineY + 33, textWidth, 0xFFFFFF);
     }
 
     private void drawReadableString(GuiGraphics graphics, Font font, Component text, int x, int y, int color) {
         graphics.drawString(font, text, x + 1, y + 1, 0xE0000000, false);
         graphics.drawString(font, text, x, y, color, false);
+    }
+
+    private void drawScaledString(GuiGraphics graphics, Font font, Component text, int x, int y, int color, float scale) {
+        graphics.pose().pushPose();
+        graphics.pose().scale(scale, scale, 1.0F);
+        int scaledX = Math.round(x / scale);
+        int scaledY = Math.round(y / scale);
+        graphics.drawString(font, text, scaledX + 1, scaledY + 1, 0xB0000000, false);
+        graphics.drawString(font, text, scaledX, scaledY, color, false);
+        graphics.pose().popPose();
     }
 
     private void renderPortrait(GuiGraphics graphics) {
@@ -88,9 +99,21 @@ public class DialogueScreen extends Screen {
         float scale = Math.min((float) bounds.width / source.width, (float) bounds.height / source.height);
         int portraitW = Math.max(1, Math.round(source.width * scale));
         int portraitH = Math.max(1, Math.round(source.height * scale));
-        int portraitX = this.width - portraitW - 18;
+        int portraitX = this.width - portraitW - 36;
         int portraitY = this.height - portraitH + 6;
-        graphics.blit(portrait, portraitX, portraitY, 0.0F, 0.0F, portraitW, portraitH, source.width, source.height);
+        graphics.blit(
+                portrait,
+                portraitX,
+                portraitY,
+                portraitW,
+                portraitH,
+                0.0F,
+                0.0F,
+                source.width,
+                source.height,
+                source.width,
+                source.height
+        );
     }
 
     private PortraitSize getPortraitRenderBounds() {
@@ -121,8 +144,8 @@ public class DialogueScreen extends Screen {
             return;
         }
 
-        int choiceX = Math.max(this.width / 2, this.width - getPortraitRenderBounds().width - 240);
-        int choiceY = panelY + 24;
+        int choiceX = Math.max(this.width / 2, this.width - getPortraitRenderBounds().width - 260);
+        int choiceY = panelY + 98;
         for (int i = 0; i < choices.size(); i++) {
             int y = choiceY + i * 18;
             boolean hovered = isChoiceHovered(i, mouseX, mouseY, choiceX, choiceY, font);
@@ -146,10 +169,10 @@ public class DialogueScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0 && !choices.isEmpty()) {
             Font font = Minecraft.getInstance().font;
-            int panelH = Math.min(168, Math.max(126, this.height / 4));
+            int panelH = Math.min(260, Math.max(150, (int) (this.height * 0.42F)));
             int panelY = this.height - panelH;
-            int choiceX = Math.max(this.width / 2, this.width - getPortraitRenderBounds().width - 240);
-            int choiceY = panelY + 24;
+            int choiceX = Math.max(this.width / 2, this.width - getPortraitRenderBounds().width - 260);
+            int choiceY = panelY + 98;
 
             for (int i = 0; i < choices.size(); i++) {
                 if (isChoiceHovered(i, mouseX, mouseY, choiceX, choiceY, font)) {
