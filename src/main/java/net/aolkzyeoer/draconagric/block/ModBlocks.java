@@ -4,6 +4,7 @@ import net.aolkzyeoer.draconagric.item.ModItems;
 import net.aolkzyeoer.draconagric.Draconagric;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
@@ -20,6 +21,12 @@ public class ModBlocks {
             registerBlocks("emberblue_ore",() -> new Block(BlockBehaviour.Properties.of()
                     .requiresCorrectToolForDrops()
                     .strength(5.0F, 9.0F)));
+
+    public static final DeferredBlock<EmberBlueFarmlandBlock> EMBERBLUE_FARMLAND =
+            BLOCKS.register(
+                    "emberblue_farmland",
+                    () -> new EmberBlueFarmlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND))
+            );
 
 
 

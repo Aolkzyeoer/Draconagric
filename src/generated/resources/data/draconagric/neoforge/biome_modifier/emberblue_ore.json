@@ -1,8 +1,6 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#draconagric:end_outer_islands",
-  "features": [
-    "draconagric:ore_emberblue"
-  ],
+  "features": "draconagric:ore_emberblue",
   "step": "underground_ores"
 }

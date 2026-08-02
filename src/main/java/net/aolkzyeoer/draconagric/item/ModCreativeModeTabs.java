@@ -42,6 +42,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.EMBERBLUE_PICKHAMMER);
                         output.accept(ModItems.EMBERBLUE_AXE);
                         output.accept(ModItems.EMBERBLUE_SWORD);
+                        output.accept(ModItems.EMBERBLUE_HOE);
                     }).build());
 
     public static void register(IEventBus eventBus) {

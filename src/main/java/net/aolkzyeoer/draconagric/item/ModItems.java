@@ -3,6 +3,7 @@ package net.aolkzyeoer.draconagric.item;
 import net.aolkzyeoer.draconagric.Draconagric;
 import net.aolkzyeoer.draconagric.item.tier.EmberBlueTier;
 import net.aolkzyeoer.draconagric.item.tool.EmberBlueAxe;
+import net.aolkzyeoer.draconagric.item.tool.EmberBlueHoe;
 import net.aolkzyeoer.draconagric.item.tool.EmberBluePickhammer;
 import net.aolkzyeoer.draconagric.item.tool.EmberBlueSword;
 import net.minecraft.world.item.Item;
@@ -63,6 +64,14 @@ public class ModItems {
     public static final DeferredItem<Item> EMBERBLUE_SWORD =
             ITEMS.register("emberblue_sword",
                     () -> new EmberBlueSword(
+                            EmberBlueTier.EMBERBLUE,
+                            new Item.Properties().stacksTo(1).durability(4096)
+                    )
+            );
+
+    public static final DeferredItem<Item> EMBERBLUE_HOE =
+            ITEMS.register("emberblue_hoe",
+                    () -> new EmberBlueHoe(
                             EmberBlueTier.EMBERBLUE,
                             new Item.Properties().stacksTo(1).durability(4096)
                     )

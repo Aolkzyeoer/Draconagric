@@ -31,5 +31,5 @@ public class ModFoods {
             .effect(() -> new MobEffectInstance(MobEffects.BAD_OMEN,3000,0),1).build();
     public static final FoodProperties MANLANBA = new FoodProperties.Builder().nutrition(5).saturationModifier(0.6f)
             .effect(() -> new MobEffectInstance(MobEffects.SATURATION, 1200, 0), 1.0f)
-            .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 8400, 0), 1.0f).build();
+            .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 140, 0), 1.0f).build();
 }

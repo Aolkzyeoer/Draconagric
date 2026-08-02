@@ -1,5 +1,6 @@
 package net.aolkzyeoer.draconagric.client.dialogue;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import net.aolkzyeoer.draconagric.network.OpenDialoguePayload;
 import net.aolkzyeoer.draconagric.network.SelectDialogueChoicePayload;
 import net.minecraft.client.Minecraft;
@@ -8,11 +9,19 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class DialogueScreen extends Screen {
+    private static final Map<ResourceLocation, PortraitSize> PORTRAIT_SIZE_CACHE = new HashMap<>();
+
     private final ResourceLocation dialogueId;
     private final String speaker;
     private final String text;
@@ -33,30 +42,35 @@ public class DialogueScreen extends Screen {
     }
 
     @Override
+    public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    }
+
+    @Override
+    protected void renderBlurredBackground(float partialTick) {
+    }
+
+    @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         Font font = Minecraft.getInstance().font;
         int panelH = Math.min(168, Math.max(126, this.height / 4));
         int panelY = this.height - panelH;
 
-        graphics.fill(0, 0, this.width, this.height, 0x18000000);
         renderDialogueBackdrop(graphics, panelY);
         renderPortrait(graphics);
         renderDialogueText(graphics, font, panelY);
         renderChoices(graphics, font, mouseX, mouseY, panelY);
-
-        super.render(graphics, mouseX, mouseY, partialTick);
     }
 
     private void renderDialogueBackdrop(GuiGraphics graphics, int y) {
-        graphics.fillGradient(0, y - 36, this.width, this.height, 0x00000000, 0xEE020205);
-        graphics.fill(0, y, this.width, this.height, 0xD806070C);
-        graphics.fill(0, y, this.width, y + 1, 0x66FFFFFF);
-        graphics.fill(0, y + 1, this.width, y + 2, 0x223DA9FF);
+        graphics.fillGradient(0, y - 32, this.width, y, 0x00000000, 0xAA020205);
+        graphics.fill(0, y, this.width, this.height, 0xB806070C);
+        graphics.fill(0, y, this.width, y + 1, 0x55FFFFFF);
+        graphics.fill(0, y + 1, this.width, y + 2, 0x333DA9FF);
     }
 
     private void renderDialogueText(GuiGraphics graphics, Font font, int y) {
         int contentX = 36;
-        int textWidth = Math.max(160, this.width - getPortraitSize() - 112);
+        int textWidth = Math.max(160, this.width - getPortraitRenderBounds().width - 112);
         drawReadableString(graphics, font, Component.literal(speaker), contentX, y + 18, 0x9EE5FF);
         drawReadableString(graphics, font, Component.literal("DIALOGUE"), contentX, y + 32, 0xDCE7FF);
         graphics.drawWordWrap(font, Component.literal(text), contentX + 1, y + 55, textWidth, 0xE0000000);
@@ -69,18 +83,37 @@ public class DialogueScreen extends Screen {
     }
 
     private void renderPortrait(GuiGraphics graphics) {
-        int portraitW = getPortraitSize();
-        int portraitH = portraitW;
+        PortraitSize source = getPortraitSourceSize();
+        PortraitSize bounds = getPortraitRenderBounds();
+        float scale = Math.min((float) bounds.width / source.width, (float) bounds.height / source.height);
+        int portraitW = Math.max(1, Math.round(source.width * scale));
+        int portraitH = Math.max(1, Math.round(source.height * scale));
         int portraitX = this.width - portraitW - 18;
         int portraitY = this.height - portraitH + 6;
-        graphics.blit(portrait, portraitX, portraitY, 0.0F, 0.0F, portraitW, portraitH, portraitW, portraitH);
+        graphics.blit(portrait, portraitX, portraitY, 0.0F, 0.0F, portraitW, portraitH, source.width, source.height);
     }
 
-    private int getPortraitSize() {
+    private PortraitSize getPortraitRenderBounds() {
         int widthBased = (int) (this.width * 0.38F);
         int heightBased = (int) (this.height * 0.88F);
         int minimum = Math.min(220, Math.max(132, this.width / 3));
-        return Math.min(430, Math.min(heightBased, Math.max(minimum, widthBased)));
+        int maxWidth = Math.min(430, Math.max(minimum, widthBased));
+        return new PortraitSize(maxWidth, heightBased);
+    }
+
+    private PortraitSize getPortraitSourceSize() {
+        return PORTRAIT_SIZE_CACHE.computeIfAbsent(portrait, location -> {
+            Optional<Resource> resource = Minecraft.getInstance().getResourceManager().getResource(location);
+            if (resource.isEmpty()) {
+                return new PortraitSize(256, 256);
+            }
+
+            try (InputStream stream = resource.get().open(); NativeImage image = NativeImage.read(stream)) {
+                return new PortraitSize(image.getWidth(), image.getHeight());
+            } catch (IOException ex) {
+                return new PortraitSize(256, 256);
+            }
+        });
     }
 
     private void renderChoices(GuiGraphics graphics, Font font, int mouseX, int mouseY, int panelY) {
@@ -88,7 +121,7 @@ public class DialogueScreen extends Screen {
             return;
         }
 
-        int choiceX = Math.max(this.width / 2, this.width - getPortraitSize() - 240);
+        int choiceX = Math.max(this.width / 2, this.width - getPortraitRenderBounds().width - 240);
         int choiceY = panelY + 24;
         for (int i = 0; i < choices.size(); i++) {
             int y = choiceY + i * 18;
@@ -115,7 +148,7 @@ public class DialogueScreen extends Screen {
             Font font = Minecraft.getInstance().font;
             int panelH = Math.min(168, Math.max(126, this.height / 4));
             int panelY = this.height - panelH;
-            int choiceX = Math.max(this.width / 2, this.width - getPortraitSize() - 240);
+            int choiceX = Math.max(this.width / 2, this.width - getPortraitRenderBounds().width - 240);
             int choiceY = panelY + 24;
 
             for (int i = 0; i < choices.size(); i++) {
@@ -133,5 +166,8 @@ public class DialogueScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+
+    private record PortraitSize(int width, int height) {
     }
 }

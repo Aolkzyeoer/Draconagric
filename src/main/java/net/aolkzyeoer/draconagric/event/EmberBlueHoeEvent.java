@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.HashSet;
@@ -16,10 +15,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @EventBusSubscriber(modid = Draconagric.MOD_ID)
-public class EmberBlueSwordEvent {
-    private static final Set<UUID> READY_PLAYERS = new HashSet<>();
-    private static final Set<UUID> CHARGED_ATTACK = new HashSet<>();
-    private static final Set<UUID> CHARGED_DEFENSE = new HashSet<>();
+public class EmberBlueHoeEvent {
+    private static final Set<UUID> CHARGING_PLAYERS = new HashSet<>();
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
@@ -30,14 +27,12 @@ public class EmberBlueSwordEvent {
 
         UUID uuid = player.getUUID();
         ItemStack stack = player.getMainHandItem();
-
-        if (!player.isShiftKeyDown() || !stack.is(ModItems.EMBERBLUE_SWORD.get())) {
-            READY_PLAYERS.remove(uuid);
+        if (!player.isShiftKeyDown() || !stack.is(ModItems.EMBERBLUE_HOE.get())) {
+            CHARGING_PLAYERS.remove(uuid);
             return;
         }
 
-        if (READY_PLAYERS.add(uuid)) {
-            CHARGED_DEFENSE.add(uuid);
+        if (CHARGING_PLAYERS.add(uuid)) {
             player.level().playSound(
                     null,
                     player.blockPosition(),
@@ -46,21 +41,6 @@ public class EmberBlueSwordEvent {
                     1.0F,
                     1.0F
             );
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingDamage(LivingDamageEvent.Pre event) {
-        if (event.getEntity() instanceof Player defender
-                && CHARGED_DEFENSE.remove(defender.getUUID())) {
-            event.setNewDamage(event.getNewDamage() * 0.5F);
-            CHARGED_ATTACK.add(defender.getUUID());
-        }
-
-        if (event.getSource().getEntity() instanceof Player attacker
-                && attacker.getMainHandItem().is(ModItems.EMBERBLUE_SWORD.get())
-                && CHARGED_ATTACK.remove(attacker.getUUID())) {
-            event.setNewDamage(event.getNewDamage() * 6.0F);
         }
     }
 }
