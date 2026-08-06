@@ -69,6 +69,11 @@ public final class CastMagicEvents {
     }
 
     @SubscribeEvent
+    public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        USED_DOUBLE_JUMP.remove(event.getEntity().getUUID());
+    }
+
+    @SubscribeEvent
     public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
         ItemStack tool = event.getEntity().getMainHandItem();
         if (!CastMagicUtil.isTool(tool)) {

@@ -27,8 +27,8 @@ public class ArcanvilScreen extends AbstractContainerScreen<ArcanvilMenu> {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = PLAYER_INVENTORY_TOP + PLAYER_INVENTORY_HEIGHT;
-        this.titleLabelX = 7;
-        this.titleLabelY = 2;
+        this.titleLabelX = 9;
+        this.titleLabelY = 3;
         this.inventoryLabelX = 0;
         this.inventoryLabelY = -1000;
     }
@@ -44,7 +44,7 @@ public class ArcanvilScreen extends AbstractContainerScreen<ArcanvilMenu> {
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         String visibleTitle = font.plainSubstrByWidth(title.getString(), TITLE_MAX_WIDTH);
-        guiGraphics.drawString(font, visibleTitle, titleLabelX, titleLabelY, 0xFFFFFF, false);
+        guiGraphics.drawString(font, visibleTitle, titleLabelX, titleLabelY, 0xFFFFFFFF, true);
     }
 
     @Override

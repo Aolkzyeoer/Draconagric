@@ -76,7 +76,7 @@ public class ArcanvilMenu extends AbstractContainerMenu {
         int slot = ArcanvilBlockEntity.FIRST_STORAGE_SLOT;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 2; col++) {
-                addSlot(new ArcanvilSlot(container, slot++, 21 + col * 18, 20 + row * 17) {
+                addSlot(new ArcanvilSlot(container, slot++, 22 + col * 17, 20 + row * 17) {
                     @Override
                     public boolean mayPlace(ItemStack stack) {
                         return !isCasting() && CastMagicUtil.isCastMaterial(stack);
