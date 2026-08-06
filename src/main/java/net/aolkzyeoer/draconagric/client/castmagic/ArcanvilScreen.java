@@ -12,8 +12,8 @@ import net.minecraft.world.inventory.Slot;
 public class ArcanvilScreen extends AbstractContainerScreen<ArcanvilMenu> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(Draconagric.MOD_ID, "textures/gui/arcanvil_table.png");
-    private static final ResourceLocation VANILLA_CONTAINER =
-            ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/container/generic_54.png");
+    private static final ResourceLocation VANILLA_INVENTORY =
+            ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/container/inventory.png");
     private static final int ARCANVIL_TEXTURE_HEIGHT = 108;
     private static final int PLAYER_INVENTORY_TOP = 110;
     private static final int PLAYER_INVENTORY_HEIGHT = 90;
@@ -37,14 +37,14 @@ public class ArcanvilScreen extends AbstractContainerScreen<ArcanvilMenu> {
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, ARCANVIL_TEXTURE_HEIGHT, 176, 166);
         renderOccupiedSlotCovers(guiGraphics);
-        guiGraphics.blit(VANILLA_CONTAINER, leftPos, topPos + PLAYER_INVENTORY_TOP, 0, 132, imageWidth, PLAYER_INVENTORY_HEIGHT, 256, 256);
+        guiGraphics.blit(VANILLA_INVENTORY, leftPos, topPos + PLAYER_INVENTORY_TOP, 0, 76, imageWidth, PLAYER_INVENTORY_HEIGHT, 176, 166);
         renderProgress(guiGraphics);
     }
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         String visibleTitle = font.plainSubstrByWidth(title.getString(), TITLE_MAX_WIDTH);
-        guiGraphics.drawString(font, visibleTitle, titleLabelX, titleLabelY, 0xFFFFFFFF, true);
+        guiGraphics.drawString(font, visibleTitle, titleLabelX, 2, 0xFFFFFFFF, false);
     }
 
     @Override

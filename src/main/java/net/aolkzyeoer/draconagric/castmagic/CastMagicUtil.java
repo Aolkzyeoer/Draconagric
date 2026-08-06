@@ -113,10 +113,10 @@ public final class CastMagicUtil {
             return true;
         }
         return stack.is(Items.COPPER_INGOT)
-                || stack.is(Items.IRON_INGOT)
                 || stack.is(Items.GOLD_INGOT)
+                || stack.is(Items.REDSTONE)
                 || stack.is(Items.AMETHYST_SHARD)
-                || stack.is(ModItems.EMBERBLUE.get());
+                || stack.is(Items.ENDER_PEARL);
     }
 
     public static CastResult applyCast(Player player, ItemStack equipment, ItemStack material) {
