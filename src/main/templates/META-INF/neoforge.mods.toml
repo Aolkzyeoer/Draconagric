@@ -27,7 +27,7 @@ modId="draconagric" #mandatory
 version="1.0.4" #mandatory
 
 # A display name for the mod
-displayName="龙耕秘典" #mandatory
+displayName="Draconagric" #mandatory
 logoFile="mod_icon.png"
 description="""穿行于不同的世界，寻找各式各样的晶核。
 全新的魔法领域，另一种冒险体验。

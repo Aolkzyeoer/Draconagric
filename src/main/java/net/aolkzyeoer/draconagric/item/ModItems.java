@@ -45,6 +45,12 @@ public class ModItems {
     public static final DeferredItem<Item> MANLANBA =
             ITEMS.register("manlanba",() -> new GlintFoodItem(new Item.Properties().food(ModFoods.MANLANBA)));
 
+    public static final DeferredItem<Item> DOUBLE_JUMP_SCROLL =
+            ITEMS.register("double_jump_scroll",() -> new MagicScrollItem(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<Item> ARCANE_CATALYST =
+            ITEMS.register("arcane_catalyst",() -> new Item(new Item.Properties().stacksTo(1).durability(200)));
+
     public static final DeferredItem<Item> EMBERBLUE_PICKHAMMER =
             ITEMS.register("emberblue_pickhammer",
                     () -> new EmberBluePickhammer(

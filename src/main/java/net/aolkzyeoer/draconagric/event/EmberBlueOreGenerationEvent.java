@@ -16,7 +16,7 @@ import net.neoforged.neoforge.event.level.ChunkEvent;
 @EventBusSubscriber(modid = Draconagric.MOD_ID)
 public class EmberBlueOreGenerationEvent {
     private static final int OUTER_ISLAND_DISTANCE_SQUARED = 1024 * 1024;
-    private static final int VEINS_PER_CHUNK = 2;
+    private static final int VEINS_PER_CHUNK = 0;
     private static final int VEIN_SIZE = 4;
     private static final int MIN_Y = 8;
     private static final int MAX_Y = 96;

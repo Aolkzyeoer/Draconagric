@@ -43,6 +43,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.EMBERBLUE_AXE);
                         output.accept(ModItems.EMBERBLUE_SWORD);
                         output.accept(ModItems.EMBERBLUE_HOE);
+                        output.accept(ModItems.DOUBLE_JUMP_SCROLL);
+                        output.accept(ModItems.ARCANE_CATALYST);
+                        output.accept(ModBlocks.ARCANVIL_TABLE);
                     }).build());
 
     public static void register(IEventBus eventBus) {

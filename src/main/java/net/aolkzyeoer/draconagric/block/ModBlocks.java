@@ -33,6 +33,11 @@ public class ModBlocks {
 
 
     //在注册方块的同时::同时注册物品状态的方块 BLOCKS->ITEMS
+    public static final DeferredBlock<ArcanvilTableBlock> ARCANVIL_TABLE =
+            registerBlocks("arcanvil_table", () -> new ArcanvilTableBlock(BlockBehaviour.Properties.of()
+                    .requiresCorrectToolForDrops()
+                    .strength(5.0F, 9.0F)));
+
     private static <T extends Block> void registerBlockItems(String name, DeferredBlock<T> block){
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }

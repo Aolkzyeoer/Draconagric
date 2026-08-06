@@ -1,8 +1,11 @@
 package net.aolkzyeoer.draconagric;
 
+import net.aolkzyeoer.draconagric.client.castmagic.ArcanvilScreen;
+import net.aolkzyeoer.draconagric.menu.ModMenuTypes;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
@@ -27,5 +30,10 @@ public class DraconagricClient {
         // Some client setup code
         Draconagric.LOGGER.info("HELLO FROM CLIENT SETUP");
         Draconagric.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+    }
+
+    @SubscribeEvent
+    static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(ModMenuTypes.ARCANVIL_MENU.get(), ArcanvilScreen::new);
     }
 }

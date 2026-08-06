@@ -29,7 +29,7 @@ public final class ModPlacedFeatures {
                 context,
                 ORE_EMBERBLUE,
                 emberblueOre,
-                CountPlacement.of(6),
+                CountPlacement.of(2),
                 InSquarePlacement.spread(),
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(8), VerticalAnchor.absolute(96)),
                 BiomeFilter.biome()

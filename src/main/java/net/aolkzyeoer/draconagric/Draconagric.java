@@ -1,6 +1,7 @@
 package net.aolkzyeoer.draconagric;
 
 import com.mojang.logging.LogUtils;
+import net.aolkzyeoer.draconagric.block.entity.ModBlockEntities;
 import net.aolkzyeoer.draconagric.block.ModBlocks;
 import net.aolkzyeoer.draconagric.component.ModDataComponents;
 import net.aolkzyeoer.draconagric.effect.ModEffects;
@@ -9,6 +10,7 @@ import net.aolkzyeoer.draconagric.event.DialogueEvents;
 import net.aolkzyeoer.draconagric.event.SheepAggroEvents;
 import net.aolkzyeoer.draconagric.item.ModCreativeModeTabs;
 import net.aolkzyeoer.draconagric.item.ModItems;
+import net.aolkzyeoer.draconagric.menu.ModMenuTypes;
 import net.aolkzyeoer.draconagric.network.ModNetwork;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -36,6 +38,8 @@ public class Draconagric {
         ModItems.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(ModNetwork::register);

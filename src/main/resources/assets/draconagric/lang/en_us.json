@@ -33,5 +33,20 @@
   "draconagric.configuration.items": "Item List",
   "draconagric.configuration.logDirtBlock": "Log Dirt Block",
   "draconagric.configuration.magicNumberIntroduction": "Magic Number Text",
-  "draconagric.configuration.magicNumber": "Magic Number"
+  "draconagric.configuration.magicNumber": "Magic Number",
+  "block.draconagric.arcanvil_table": "Arcanvil Table",
+  "item.draconagric.double_jump_scroll": "Magic Scroll",
+  "item.draconagric.arcane_catalyst": "Arcane Catalyst",
+  "tooltip.draconagric.double_jump_scroll.effect": "Double Jump",
+  "container.draconagric.arcanvil_table": "Arcanvil Table",
+  "button.draconagric.arcanvil_table.cast": "Cast",
+  "label.draconagric.arcanvil_table.cost": "%s levels",
+  "message.draconagric.arcanvil_table.invalid": "Requires equipment, a smithing template, a valid focus, and 5 levels.",
+  "message.draconagric.arcanvil_table.busy": "The Arcanvil Table is already casting.",
+  "castmagic.draconagric.lapis": "Lapis Lazuli",
+  "castmagic.draconagric.quartz": "Quartz",
+  "castmagic.draconagric.emerald": "Emerald",
+  "castmagic.draconagric.diamond": "Diamond",
+  "castmagic.draconagric.netherite": "Netherite",
+  "castmagic.draconagric.double_jump": "Double Jump"
 }
