@@ -46,7 +46,16 @@ public class ModItems {
             ITEMS.register("manlanba",() -> new GlintFoodItem(new Item.Properties().food(ModFoods.MANLANBA)));
 
     public static final DeferredItem<Item> DOUBLE_JUMP_SCROLL =
-            ITEMS.register("double_jump_scroll",() -> new MagicScrollItem(new Item.Properties().stacksTo(1)));
+            ITEMS.register("double_jump_scroll",() -> new MagicScrollItem(
+                    new Item.Properties().stacksTo(1),
+                    "tooltip.draconagric.double_jump_scroll.effect"
+            ));
+
+    public static final DeferredItem<Item> DISARM_SCROLL =
+            ITEMS.register("disarm_scroll",() -> new MagicScrollItem(
+                    new Item.Properties().stacksTo(1),
+                    "tooltip.draconagric.disarm_scroll.effect"
+            ));
 
     public static final DeferredItem<Item> ARCANE_CATALYST =
             ITEMS.register("arcane_catalyst",() -> new Item(new Item.Properties().stacksTo(1).durability(200)));

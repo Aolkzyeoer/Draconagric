@@ -7,5 +7,6 @@ public enum CastMagicType {
     DIAMOND,
     NETHERITE,
     POTION,
-    DOUBLE_JUMP
+    DOUBLE_JUMP,
+    DISARM
 }

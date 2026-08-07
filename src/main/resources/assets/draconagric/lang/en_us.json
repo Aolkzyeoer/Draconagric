@@ -36,8 +36,10 @@
   "draconagric.configuration.magicNumber": "Magic Number",
   "block.draconagric.arcanvil_table": "Arcanvil Table",
   "item.draconagric.double_jump_scroll": "Magic Scroll",
+  "item.draconagric.disarm_scroll": "Disarm Scroll",
   "item.draconagric.arcane_catalyst": "Arcane Catalyst",
   "tooltip.draconagric.double_jump_scroll.effect": "Double Jump",
+  "tooltip.draconagric.disarm_scroll.effect": "Drops the target's main-hand weapon on hit (cannot be applied to armor)",
   "container.draconagric.arcanvil_table": "Arcanvil Table",
   "button.draconagric.arcanvil_table.cast": "Cast",
   "label.draconagric.arcanvil_table.cost": "%s levels",
@@ -48,5 +50,6 @@
   "castmagic.draconagric.emerald": "Emerald",
   "castmagic.draconagric.diamond": "Diamond",
   "castmagic.draconagric.netherite": "Netherite",
-  "castmagic.draconagric.double_jump": "Double Jump"
+  "castmagic.draconagric.double_jump": "Double Jump",
+  "castmagic.draconagric.disarm": "Disarm"
 }

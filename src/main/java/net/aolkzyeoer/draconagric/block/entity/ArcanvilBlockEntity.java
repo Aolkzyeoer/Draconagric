@@ -1,7 +1,6 @@
 package net.aolkzyeoer.draconagric.block.entity;
 
 import net.aolkzyeoer.draconagric.castmagic.CastMagicUtil;
-import net.aolkzyeoer.draconagric.item.ModItems;
 import net.aolkzyeoer.draconagric.menu.ArcanvilMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -26,9 +25,13 @@ public class ArcanvilBlockEntity extends BlockEntity implements Container, MenuP
     public static final int POTION_SLOT = 0;
     public static final int SCROLL_SLOT = 1;
     public static final int EQUIPMENT_SLOT = 2;
-    public static final int TEMPLATE_SLOT_1 = 3;
-    public static final int TEMPLATE_SLOT_2 = 4;
+    public static final int TEMPLATE_SLOT = 3;
+    public static final int MINERAL_SLOT = 4;
     public static final int FIRST_STORAGE_SLOT = 5;
+    public static final int STORAGE_POTION_START = 5;
+    public static final int STORAGE_MINERAL_START = 7;
+    public static final int STORAGE_TEMPLATE_START = 9;
+    public static final int STORAGE_SCROLL_START = 11;
     public static final int CONTAINER_SIZE = 13;
     public static final int MAX_PROGRESS = 100;
 
@@ -133,11 +136,13 @@ public class ArcanvilBlockEntity extends BlockEntity implements Container, MenuP
     }
 
     private int findTemplateSlot() {
-        if (CastMagicUtil.isSmithingTemplate(getItem(TEMPLATE_SLOT_1))) {
-            return TEMPLATE_SLOT_1;
+        if (CastMagicUtil.isSmithingTemplate(getItem(TEMPLATE_SLOT))) {
+            return TEMPLATE_SLOT;
         }
-        if (CastMagicUtil.isSmithingTemplate(getItem(TEMPLATE_SLOT_2))) {
-            return TEMPLATE_SLOT_2;
+        for (int slot = STORAGE_TEMPLATE_START; slot < STORAGE_SCROLL_START; slot++) {
+            if (CastMagicUtil.isSmithingTemplate(getItem(slot))) {
+                return slot;
+            }
         }
         return -1;
     }
@@ -154,7 +159,15 @@ public class ArcanvilBlockEntity extends BlockEntity implements Container, MenuP
         if (CastMagicUtil.typeForMaterial(getItem(POTION_SLOT)).isPresent()) {
             return POTION_SLOT;
         }
-        for (int slot = FIRST_STORAGE_SLOT; slot < CONTAINER_SIZE; slot++) {
+        if (CastMagicUtil.typeForMaterial(getItem(MINERAL_SLOT)).isPresent()) {
+            return MINERAL_SLOT;
+        }
+        for (int slot = STORAGE_POTION_START; slot < STORAGE_TEMPLATE_START; slot++) {
+            if (CastMagicUtil.typeForMaterial(getItem(slot)).isPresent()) {
+                return slot;
+            }
+        }
+        for (int slot = STORAGE_SCROLL_START; slot < CONTAINER_SIZE; slot++) {
             if (CastMagicUtil.typeForMaterial(getItem(slot)).isPresent()) {
                 return slot;
             }
@@ -245,15 +258,27 @@ public class ArcanvilBlockEntity extends BlockEntity implements Container, MenuP
             return CastMagicUtil.isPotion(stack);
         }
         if (slot == SCROLL_SLOT) {
-            return stack.is(ModItems.DOUBLE_JUMP_SCROLL.get());
+            return CastMagicUtil.isScroll(stack);
         }
         if (slot == EQUIPMENT_SLOT) {
             return CastMagicUtil.isCastableEquipment(stack);
         }
-        if (slot == TEMPLATE_SLOT_1 || slot == TEMPLATE_SLOT_2) {
+        if (slot == TEMPLATE_SLOT) {
             return CastMagicUtil.isSmithingTemplate(stack);
         }
-        return CastMagicUtil.isCastMaterial(stack);
+        if (slot == MINERAL_SLOT) {
+            return CastMagicUtil.isCastMaterial(stack);
+        }
+        if (slot >= STORAGE_POTION_START && slot < STORAGE_MINERAL_START) {
+            return CastMagicUtil.isPotion(stack);
+        }
+        if (slot >= STORAGE_MINERAL_START && slot < STORAGE_TEMPLATE_START) {
+            return CastMagicUtil.isCastMaterial(stack);
+        }
+        if (slot >= STORAGE_TEMPLATE_START && slot < STORAGE_SCROLL_START) {
+            return CastMagicUtil.isSmithingTemplate(stack);
+        }
+        return slot >= STORAGE_SCROLL_START && CastMagicUtil.isScroll(stack);
     }
 
     @Override

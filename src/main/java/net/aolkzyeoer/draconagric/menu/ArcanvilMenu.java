@@ -48,7 +48,7 @@ public class ArcanvilMenu extends AbstractContainerMenu {
                 return !isCasting() && CastMagicUtil.isPotion(stack);
             }
         });
-        addSlot(new ArcanvilSlot(container, ArcanvilBlockEntity.SCROLL_SLOT, 66, 74) {
+        addSlot(new ArcanvilSlot(container, ArcanvilBlockEntity.SCROLL_SLOT, 154, 20) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return !isCasting() && CastMagicUtil.isScroll(stack);
@@ -60,26 +60,33 @@ public class ArcanvilMenu extends AbstractContainerMenu {
                 return !isCasting() && CastMagicUtil.isCastableEquipment(stack);
             }
         });
-        addSlot(new ArcanvilSlot(container, ArcanvilBlockEntity.TEMPLATE_SLOT_1, 154, 20) {
+        addSlot(new ArcanvilSlot(container, ArcanvilBlockEntity.TEMPLATE_SLOT, 154, 74) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return !isCasting() && CastMagicUtil.isSmithingTemplate(stack);
             }
         });
-        addSlot(new ArcanvilSlot(container, ArcanvilBlockEntity.TEMPLATE_SLOT_2, 154, 74) {
+        addSlot(new ArcanvilSlot(container, ArcanvilBlockEntity.MINERAL_SLOT, 66, 74) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return !isCasting() && CastMagicUtil.isSmithingTemplate(stack);
+                return !isCasting() && CastMagicUtil.isCastMaterial(stack);
             }
         });
 
         int slot = ArcanvilBlockEntity.FIRST_STORAGE_SLOT;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 2; col++) {
+                int storageRow = row;
                 addSlot(new ArcanvilSlot(container, slot++, 22 + col * 17, 20 + row * 17) {
                     @Override
                     public boolean mayPlace(ItemStack stack) {
-                        return !isCasting() && CastMagicUtil.isCastMaterial(stack);
+                        return !isCasting() && switch (storageRow) {
+                            case 0 -> CastMagicUtil.isPotion(stack);
+                            case 1 -> CastMagicUtil.isCastMaterial(stack);
+                            case 2 -> CastMagicUtil.isSmithingTemplate(stack);
+                            case 3 -> CastMagicUtil.isScroll(stack);
+                            default -> false;
+                        };
                     }
                 });
             }
@@ -121,11 +128,11 @@ public class ArcanvilMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else if (CastMagicUtil.isPotion(stack)) {
-            if (!moveItemStackTo(stack, ArcanvilBlockEntity.POTION_SLOT, ArcanvilBlockEntity.POTION_SLOT + 1, false)) {
+            if (!moveToCategory(stack, ArcanvilBlockEntity.POTION_SLOT, ArcanvilBlockEntity.STORAGE_POTION_START, ArcanvilBlockEntity.STORAGE_MINERAL_START)) {
                 return ItemStack.EMPTY;
             }
         } else if (CastMagicUtil.isScroll(stack)) {
-            if (!moveItemStackTo(stack, ArcanvilBlockEntity.SCROLL_SLOT, ArcanvilBlockEntity.SCROLL_SLOT + 1, false)) {
+            if (!moveToCategory(stack, ArcanvilBlockEntity.SCROLL_SLOT, ArcanvilBlockEntity.STORAGE_SCROLL_START, ARCANVIL_SLOT_COUNT)) {
                 return ItemStack.EMPTY;
             }
         } else if (CastMagicUtil.isCastableEquipment(stack)) {
@@ -133,11 +140,11 @@ public class ArcanvilMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else if (CastMagicUtil.isSmithingTemplate(stack)) {
-            if (!moveItemStackTo(stack, ArcanvilBlockEntity.TEMPLATE_SLOT_1, ArcanvilBlockEntity.TEMPLATE_SLOT_2 + 1, false)) {
+            if (!moveToCategory(stack, ArcanvilBlockEntity.TEMPLATE_SLOT, ArcanvilBlockEntity.STORAGE_TEMPLATE_START, ArcanvilBlockEntity.STORAGE_SCROLL_START)) {
                 return ItemStack.EMPTY;
             }
         } else if (CastMagicUtil.isCastMaterial(stack)) {
-            if (!moveItemStackTo(stack, ArcanvilBlockEntity.FIRST_STORAGE_SLOT, ARCANVIL_SLOT_COUNT, false)) {
+            if (!moveToCategory(stack, ArcanvilBlockEntity.MINERAL_SLOT, ArcanvilBlockEntity.STORAGE_MINERAL_START, ArcanvilBlockEntity.STORAGE_TEMPLATE_START)) {
                 return ItemStack.EMPTY;
             }
         } else {
@@ -150,6 +157,14 @@ public class ArcanvilMenu extends AbstractContainerMenu {
             slot.setChanged();
         }
         return result;
+    }
+
+    private boolean moveToCategory(ItemStack stack, int primarySlot, int storageStart, int storageEnd) {
+        boolean moved = moveItemStackTo(stack, primarySlot, primarySlot + 1, false);
+        if (!stack.isEmpty()) {
+            moved |= moveItemStackTo(stack, storageStart, storageEnd, false);
+        }
+        return moved;
     }
 
     @Override

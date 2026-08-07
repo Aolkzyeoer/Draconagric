@@ -9,8 +9,11 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.List;
 
 public class MagicScrollItem extends Item {
-    public MagicScrollItem(Properties properties) {
+    private final String tooltipKey;
+
+    public MagicScrollItem(Properties properties, String tooltipKey) {
         super(properties);
+        this.tooltipKey = tooltipKey;
     }
 
     @Override
@@ -20,6 +23,6 @@ public class MagicScrollItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("tooltip.draconagric.double_jump_scroll.effect").withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable(tooltipKey).withStyle(ChatFormatting.GRAY));
     }
 }

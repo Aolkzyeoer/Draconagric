@@ -21,7 +21,6 @@ import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.component.CustomData;
@@ -60,6 +59,7 @@ public final class CastMagicUtil {
             case LAPIS -> equipment.has(DataComponents.MAX_DAMAGE);
             case QUARTZ, EMERALD, DIAMOND, NETHERITE, POTION -> isWeapon(equipment) || isTool(equipment) || isArmor(equipment);
             case DOUBLE_JUMP -> isBoots(equipment);
+            case DISARM -> isWeapon(equipment) || isTool(equipment);
         };
     }
 
@@ -79,11 +79,14 @@ public final class CastMagicUtil {
         if (material.is(Items.NETHERITE_INGOT)) {
             return Optional.of(CastMagicType.NETHERITE);
         }
-        if (material.getItem() instanceof PotionItem) {
+        if (isPotion(material)) {
             return Optional.of(CastMagicType.POTION);
         }
         if (material.is(ModItems.DOUBLE_JUMP_SCROLL.get())) {
             return Optional.of(CastMagicType.DOUBLE_JUMP);
+        }
+        if (material.is(ModItems.DISARM_SCROLL.get())) {
+            return Optional.of(CastMagicType.DISARM);
         }
         return Optional.empty();
     }
@@ -94,11 +97,14 @@ public final class CastMagicUtil {
     }
 
     public static boolean isPotion(ItemStack stack) {
-        return stack.getItem() instanceof PotionItem;
+        return stack.is(Items.POTION)
+                || stack.is(Items.SPLASH_POTION)
+                || stack.is(Items.LINGERING_POTION);
     }
 
     public static boolean isScroll(ItemStack stack) {
-        return stack.is(ModItems.DOUBLE_JUMP_SCROLL.get());
+        return stack.is(ModItems.DOUBLE_JUMP_SCROLL.get())
+                || stack.is(ModItems.DISARM_SCROLL.get());
     }
 
     public static boolean isCastableEquipment(ItemStack stack) {
@@ -109,14 +115,17 @@ public final class CastMagicUtil {
         if (stack.isEmpty()) {
             return false;
         }
-        if (typeForMaterial(stack).isPresent()) {
-            return true;
-        }
-        return stack.is(Items.COPPER_INGOT)
+        return stack.is(Items.LAPIS_LAZULI)
+                || stack.is(Items.QUARTZ)
+                || stack.is(Items.EMERALD)
+                || stack.is(Items.DIAMOND)
+                || stack.is(Items.NETHERITE_INGOT)
+                || stack.is(Items.COPPER_INGOT)
                 || stack.is(Items.GOLD_INGOT)
                 || stack.is(Items.REDSTONE)
                 || stack.is(Items.AMETHYST_SHARD)
-                || stack.is(Items.ENDER_PEARL);
+                || stack.is(Items.ENDER_PEARL)
+                || stack.is(ModItems.EMBERBLUE.get());
     }
 
     public static CastResult applyCast(Player player, ItemStack equipment, ItemStack material) {

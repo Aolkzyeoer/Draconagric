@@ -21,7 +21,8 @@ public class ArcanvilScreen extends AbstractContainerScreen<ArcanvilMenu> {
     private static final int PROGRESS_Y = 100;
     private static final int PROGRESS_WIDTH = 63;
     private static final int PROGRESS_HEIGHT = 4;
-    private static final int TITLE_MAX_WIDTH = 63;
+    private static final float TITLE_SCALE = 0.75F;
+    private static final int TITLE_MAX_WIDTH = 84;
 
     public ArcanvilScreen(ArcanvilMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -44,7 +45,11 @@ public class ArcanvilScreen extends AbstractContainerScreen<ArcanvilMenu> {
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         String visibleTitle = font.plainSubstrByWidth(title.getString(), TITLE_MAX_WIDTH);
-        guiGraphics.drawString(font, visibleTitle, titleLabelX, 2, 0xFFFFFFFF, false);
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(titleLabelX, titleLabelY, 0.0F);
+        guiGraphics.pose().scale(TITLE_SCALE, TITLE_SCALE, 1.0F);
+        guiGraphics.drawString(font, visibleTitle, 0, 0, 0xFFFFFFFF, false);
+        guiGraphics.pose().popPose();
     }
 
     @Override

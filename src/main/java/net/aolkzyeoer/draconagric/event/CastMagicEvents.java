@@ -123,8 +123,19 @@ public final class CastMagicEvents {
         if (weapon.isEmpty() || attacker.level().isClientSide) {
             return;
         }
-        for (MobEffectInstance effect : CastMagicUtil.getStoredPotionEffects(weapon, 60)) {
+        if (!CastMagicUtil.isWeapon(weapon) && !CastMagicUtil.isTool(weapon)) {
+            return;
+        }
+        for (MobEffectInstance effect : CastMagicUtil.getStoredPotionEffects(weapon, 100)) {
             event.getEntity().addEffect(effect, attacker);
+        }
+        if (CastMagicUtil.hasType(weapon, CastMagicType.DISARM)) {
+            ItemStack targetWeapon = event.getEntity().getMainHandItem();
+            if (!targetWeapon.isEmpty()) {
+                ItemStack droppedWeapon = targetWeapon.copy();
+                event.getEntity().setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                event.getEntity().spawnAtLocation(droppedWeapon);
+            }
         }
     }
 
@@ -180,6 +191,11 @@ public final class CastMagicEvents {
                         .append(Component.translatable("castmagic.draconagric.double_jump"))
                         .append("]")
                         .withStyle(Style.EMPTY.withColor(LIGHT_GREEN)));
+            } else if (type == CastMagicType.DISARM) {
+                lines.add(Component.literal("[")
+                        .append(Component.translatable("castmagic.draconagric.disarm"))
+                        .append("]")
+                        .withStyle(ChatFormatting.GOLD));
             } else {
                 lines.add(mineralLine(type));
             }
